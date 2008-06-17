@@ -27,6 +27,8 @@ sfPropelActAsSluggableBehaviorPlugin http://svn.symfony-project.com/plugins/sfPr
 sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin/trunk
 }}}
 
+Then run the `svn update` command.
+
 == PEAR install ==
 Run the following commands within a bash prompt at the root of your symfony project:
 
