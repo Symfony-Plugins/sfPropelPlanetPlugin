@@ -1,0 +1,144 @@
+= sfPropelPlanetPlugin =
+This plugin provides (very) simple feed aggregation features to your symfony 1.1 
+powered application.
+
+'''Note: this plugin isn't compatible with symfony 1.0'''
+
+== Installation ==
+The plugin and its dependecies can be installed using two methods, SVN or PEAR.
+
+=== SVN install ===
+Edit the `svn:externals` property to the `plugins` directory of your symfony
+project and add these lines if they don't exist yet:
+
+{{{
+sfFeed2Plugin http://svn.symfony-project.com/plugins/sfFeed2Plugin/
+sfWebBrowser http://svn.symfony-project.com/plugins/sfWebBrowserPlugin/
+sfPropelActAsSluggableBehaviorPlugin http://svn.symfony-project.com/plugins/sfPropelActAsSluggableBehaviorPlugin/
+sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin/trunk
+}}}
+
+== PEAR install ==
+Run the following commands within a bash prompt at the root of your symfony project:
+
+{{{
+$ php symfony plugin-install sfFeed2Plugin
+$ php symfony plugin-install sfWebBrowser
+$ php symfony plugin-install sfPropelActAsSluggableBehaviorPlugin
+$ php symfony plugin-install sfPropelPlanetPlugin
+}}}
+
+== After plugin(s) has been installed ==
+Run these commands within your project:
+
+{{{
+$ php symfony cache:clear
+$ php symfony propel:build-all-load <appname>
+}}}
+
+Where `<appname>` is the name of one of your existing apps.
+
+== Configuration ==
+There's pretty nothing to configure except by adding some customization to your 
+`app.yml` file. A bundled self-explanatory `app.yml-sample` is provided to help 
+yourself seeing what can be configured.
+
+== Usage ==
+The plugin is bundled with two dedicated task and web modules. 
+
+Task can be used with from the command line interface, and you can schedule them
+using the *nix [http://en.wikipedia.org/wiki/Cron CRON] utility.
+
+Web modules provides quick'n'dirty frontend and backend rough web interfaces to
+display and manage your data.
+
+=== Using the `planet:add-feed` task ===
+The `planet:grab-entries` allows to add and grab a new feed to your planet. Here
+is a sample call:
+{{{
+$ php symfony planet:add-feed <appname> -u http://feeds.feedburner.com/symfony/blog
+}}}
+
+Where `<appname>` is the name of one of your apps. This command will fetch the 
+provided feed url and related entries, and store them in your database.
+
+To get help on available options, just type:
+{{{
+$ php symfony help planet:add-feed
+Usage:
+ symfony planet:add-feed [--feed-url|-u="..."] [--active|-a] [--periodicity|-p[="..."]] [--no-grab|-s] [--max-entries|-m[="..."]] application
+
+Aliases: planet-add-feeds
+
+Arguments:
+ application    The application name
+
+Options:
+ --feed-url     (-u) The feed url to add
+ --active       (-a) Activate the feed
+ --periodicity  (-p) Periodicity in seconds (default: 3600)
+ --no-grab      (-s) Do not grab and store the feed entries
+ --max-entries  (-m) Max number of entries to grab and store (default: 0)
+}}}
+
+=== Using the `planet:grab-feeds` task ===
+The `planet:grab-entries` updates perempted feed entries, I mean the ones which
+the `periodicity` value has been exceeded. 
+
+To launch the task, just run the following command:
+{{{
+$ php symfony planet:grab-feeds <appname>
+}}}
+
+To get help on available options, just type:
+{{{
+$ php symfony help planet:grab-feeds
+Usage:
+ symfony planet:grab-feeds [--force-refresh|-f] application
+
+Aliases: planet-grab-feeds
+
+Arguments:
+ application      The application name
+
+Options:
+ --force-refresh  (-f) Forces to grab and update all feeds, including those which are not perempted
+}}}
+
+=== Using bundled web modules === 
+==== The `sfPlanetAdmin` web module ====
+The `sfPlanetAdmin` module provides admin features of your feeds entries. To 
+enable the module for an application, edit its `settings.yml` file as following:
+
+{{{
+all:
+  .settings
+    enabled_modules: [default, sfPlanetAdmin]
+}}}
+
+Then eventually purge your application cache and browse to `/sfPlanetAdmin`. 
+
+==== The `sfPlanet` web module ====
+The `sfPlanet` module provides list of feed entries as HTML or RSS output. To 
+enable the module for an application, edit its `settings.yml` file as following:
+
+{{{
+all:
+  .settings
+    enabled_modules: [default, sfPlanet]
+}}}
+
+Then purge your application config cache with `php symfony cc` and browse to 
+`/sfPlanet/list`.
+
+== License ==
+This plugin is released under the terms of the 
+[http://en.wikipedia.org/wiki/MIT_License MIT] license.
+
+== Credits ==
+This plugin has been released by Nicolas Perriault <nperriault -> gmail.com> and
+uses these other plugins:
+ 
+ * [wiki:sfFeed2Plugin sfFeed2Plugin]: handy feed utilities
+ * [wiki:sfWebBrowser sfWebBrowser]: handy php web browsing utility
+ * [wiki:sfPropelActAsSluggableBehaviorPlugin sfPropelActAsSluggableBehaviorPlugin]: handy slug generation utility

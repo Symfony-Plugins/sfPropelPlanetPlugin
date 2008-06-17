@@ -1,0 +1,18 @@
+all:
+  planet:
+    title:            My Planet
+    homepage:         "http://myplanet.foo/"
+    description:      The planet I live on
+    language:         en-us
+    editor_email:     me@myplanet.foo
+    webmaster_email:  webmaster@myplanet.foo
+    periodicity:
+      60:    one minute
+      300:   five minutes
+      900:   fifteen minutes
+      1800:  half an hour
+      3600:  one hour
+      7200:  two hours
+      18000: five hours
+      43200: half a day
+      86400: one day

@@ -1,0 +1,9 @@
+generator:
+  class:                   sfPropelCrudGenerator
+  param:
+    model_class:           sfPlanetFeed
+    theme:                 default
+
+    non_atomic_actions:    true
+    non_verbose_templates: false
+    with_show:             true

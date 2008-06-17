@@ -1,0 +1,25 @@
+propel:
+  _attributes:       { package: plugins.sfPropelPlanetPlugin.lib.model }
+  
+  sf_planet_feed:
+    _attributes:     { phpName: sfPlanetFeed }
+    id:              ~
+    title:           { type: varchar, size: 255, required: true }
+    slug:            { type: varchar, size: 255, required: true }
+    description:     longvarchar
+    homepage:        { type: varchar, size: 255 }
+    feed_url:        { type: varchar, size: 255, required: true }
+    is_active:       { type: boolean, default: 0 }
+    periodicity:     { type: integer, required: true, default: 3600 }
+    last_grabbed_at: { type: timestamp, index: true }
+  
+  sf_planet_entry:
+    _attributes:     { phpName: sfPlanetFeedEntry }
+    id:              ~
+    feed_id:         { type: integer, required: true, foreignTable: sf_planet_feed, foreignReference: id, onDelete: cascade }
+    title:           { type: varchar, size: 255, required: true, default: 'Unitled entry' }
+    content:         longvarchar
+    link_url:        { type: varchar, size: 255, required: true }
+    unique_id:       { type: varchar, size: 32, index: true }
+    created_at:      timestamp
+    published_at:    { type: timestamp, index: true }

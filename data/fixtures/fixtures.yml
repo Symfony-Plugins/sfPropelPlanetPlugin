@@ -1,0 +1,17 @@
+sfPlanetFeed:
+  sfFeed_1:
+    title:           Slashdot
+    description:     Stuff for nerds
+    homepage:        'http://slashdot.org/'
+    feed_url:        'http://rss.slashdot.org/Slashdot/slashdot'
+    is_active:       1
+    last_grabbed_at: "2008-01-01 00:00:00"
+    periodicity:     3600
+  sfFeed_2:
+    title:           Digg.com homepage
+    description:     Last entries
+    homepage:        'http://digg.com/'
+    feed_url:        'http://digg.com/rss/index.xml'
+    is_active:       1
+    last_grabbed_at: <?php echo date('Y-m-d H:i:s', time() + 7200) . "\n" ?>
+    periodicity:     3600
