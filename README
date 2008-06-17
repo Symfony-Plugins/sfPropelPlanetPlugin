@@ -29,8 +29,12 @@ $ php symfony plugin-install sfPropelPlanetPlugin
 }}}
 
 == After plugin(s) has been installed ==
-Run these commands within your project:
+You'll have to edit your `config/propel.ini` file to allow use of behaviors:
+{{{
+propel.builder.addBehaviors = true
+}}}
 
+Then run these commands within your project:
 {{{
 $ php symfony cache:clear
 $ php symfony propel:build-all-load <appname>
