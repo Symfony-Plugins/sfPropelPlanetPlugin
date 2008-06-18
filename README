@@ -77,6 +77,7 @@ and store them in your database.
 To get help on available options, just type:
 {{{
 $ php symfony help planet:feed-add
+Usage:
  symfony planet:feed-add [--non-activate|-i] [--periodicity|-p[="..."]] [--no-grab|-s] [--max-entries|-m[="..."]] application feed-url
 
 Aliases: planet-feed-add
@@ -105,7 +106,7 @@ To get help on available options, just type:
 {{{
 $ php symfony help planet:feed-grab
 Usage:
- symfony planet:feed-grab [--force-refresh|-f] application [feed-slug]
+ symfony planet:feed-grab [--force-refresh|-f] [--verbose|-v] application [feed-slug]
 
 Aliases: planet-feed-grab
 
@@ -115,6 +116,7 @@ Arguments:
 
 Options:
  --force-refresh  (-f) Forces to grab and update all feeds, including those which are not perempted
+ --verbose        (-v) Prints verbose messages during grabbing
 }}}
 
 === Using bundled web modules ===

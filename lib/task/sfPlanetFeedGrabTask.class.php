@@ -22,7 +22,10 @@ class sfPlanetFeedGrabTask extends sfPlanetBaseTask
       new sfCommandArgument('feed-slug', sfCommandArgument::OPTIONAL, 'The feed slug (if not provided, all active feeds entries will be grabbed)'),
     ));
     
-    $this->addOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not perempted');
+    $this->addOptions(array(
+      new sfCommandOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not perempted'),
+      new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Prints verbose messages during grabbing'),      
+    ));
   }
   
   /**
@@ -49,7 +52,7 @@ class sfPlanetFeedGrabTask extends sfPlanetBaseTask
       
       if ($feed->isPerempted() || $options['force-refresh'])
       {
-        $this->grabFeedEntries($feed);
+        $this->grabFeedEntries($feed, $options['verbose']);
       }
       else
       {
@@ -70,7 +73,7 @@ class sfPlanetFeedGrabTask extends sfPlanetBaseTask
     
     foreach ($feeds as $feed)
     {
-      $this->grabFeedEntries($feed);
+      $this->grabFeedEntries($feed, $options['verbose']);
       $n++;
     }
     

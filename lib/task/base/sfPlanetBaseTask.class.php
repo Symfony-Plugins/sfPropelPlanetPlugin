@@ -9,10 +9,11 @@ class sfPlanetBaseTask extends sfBaseTask
   /**
    * Grab a feed from its Propel representation
    *
-   * @param  sfPlanetFeed $feed  The Propel feed object
-   * @return int                 The number of grabbed entries
+   * @param  sfPlanetFeed $feed     The Propel feed object
+   * @param  Boolean      $verbose  Log verbosely added feed entries
+   * @return int                    The number of grabbed entries
    */
-  protected function grabFeedEntries(sfPlanetFeed $feed)
+  protected function grabFeedEntries(sfPlanetFeed $feed, $verbose = false)
   {
     $this->logSection('feed', sprintf('Fetching %s', $feed->getTitle()));
       
@@ -28,7 +29,7 @@ class sfPlanetBaseTask extends sfBaseTask
     $m = 0;
     foreach ($parsed_feed->getItems() as $item)
     {
-      $this->grabFeedEntry($item, $feed);
+      $this->grabFeedEntry($item, $feed, $verbose);
       $m++;
     }
     
@@ -41,24 +42,35 @@ class sfPlanetBaseTask extends sfBaseTask
   /**
    * Grab a feed entry and add it to a planet feed
    *
-   * @param sfFeedItem $item
-   * @param sfPlanetFeed $feed
+   * @param  sfFeedItem    $item
+   * @param  sfPlanetFeed  $feed
+   * @param  Boolean       $verbose      
    */
-  protected function grabFeedEntry(sfFeedItem $item, sfPlanetFeed $feed)
+  protected function grabFeedEntry(sfFeedItem $item, sfPlanetFeed $feed, $verbose = false)
   {
     try
     {
       $entry = sfPlanetFeedEntryPeer::createFromFeedItem($item, $feed);
       $entry->save();
-      $this->logSection('entry', sprintf('Entry "%s" saved', $item->getTitle()));
+      
+      if ($verbose)
+      {
+        $this->logSection('entry', sprintf('Entry "%s" saved', $item->getTitle()));
+      }
     }
     catch (PropelException $e)
     {
-      $this->logError(sprintf('Error while saving entry "%s": %s', $item->getTitle(), $e->getMessage()));
+      if ($verbose)
+      {
+        $this->logError(sprintf('Error while saving entry "%s": %s', $item->getTitle(), $e->getMessage()));
+      }
     }
     catch (Exception $e)
     {
-      $this->logError(sprintf('Error while fetching entry "%s": %s', $item->getTitle(), $e->getMessage()));
+      if ($verbose)
+      {
+        $this->logError(sprintf('Error while fetching entry "%s": %s', $item->getTitle(), $e->getMessage()));
+      }
     }
   }
   
