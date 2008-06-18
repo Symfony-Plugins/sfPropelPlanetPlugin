@@ -6,6 +6,17 @@
  */ 
 class sfPlanetFeed extends BasesfPlanetFeed
 {
+  
+  /**
+   * Checks if the feed is perempted 
+   *
+   * @return Boolean
+   */
+  public function isPerempted()
+  {
+    return ($this->getLastGrabbedAt(null) + $this->getPeriodicity()) < time();
+  }
+  
 }
 
 $columns_map = array('from' => BasesfPlanetFeedPeer::TITLE,

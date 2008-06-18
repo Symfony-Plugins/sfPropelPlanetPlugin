@@ -12,6 +12,10 @@ propel:
     is_active:       { type: boolean, default: 0 }
     periodicity:     { type: integer, required: true, default: 3600 }
     last_grabbed_at: { type: timestamp, index: true }
+    _indexes:
+      slug_idx:      [slug, is_active]
+    _uniques:
+      slug_unique:   [slug]
   
   sf_planet_entry:
     _attributes:     { phpName: sfPlanetFeedEntry }
@@ -23,3 +27,5 @@ propel:
     unique_id:       { type: varchar, size: 32, index: true }
     created_at:      timestamp
     published_at:    { type: timestamp, index: true }
+    _indexes:
+      entry_idx:     [feed_id, published_at]

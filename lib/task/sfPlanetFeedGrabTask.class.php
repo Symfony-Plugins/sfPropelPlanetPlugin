@@ -3,7 +3,7 @@
  * Feeds grabbing task
  *
  */
-class sfPlanetGrabFeedsTask extends sfBaseTask
+class sfPlanetFeedGrabTask extends sfPlanetBaseTask
 {
   
   /**
@@ -12,13 +12,14 @@ class sfPlanetGrabFeedsTask extends sfBaseTask
    */
   public function configure()
   {
-    $this->aliases          = array('planet-grab-feeds');
+    $this->aliases          = array('planet-feed-grab');
     $this->namespace        = 'planet';
-    $this->name             = 'grab-feeds';
+    $this->name             = 'feed-grab';
     $this->briefDescription = 'Grabs last planet feeds entries and store them in the database';
     
     $this->addArguments(array(
       new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
+      new sfCommandArgument('feed-slug', sfCommandArgument::OPTIONAL, 'The feed slug (if not provided, all active feeds entries will be grabbed)'),
     ));
     
     $this->addOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not perempted');
@@ -39,6 +40,25 @@ class sfPlanetGrabFeedsTask extends sfBaseTask
     $c->add(sfPlanetFeedPeer::IS_ACTIVE, true);
     $n = 0;
     
+    if ($slug = $arguments['feed-slug'])
+    {
+      if (is_null($feed = sfPlanetFeedPeer::retrieveBySlug($slug)))
+      {
+        throw new sfCommandException(sprintf('Feed "%s" does not exist', $slug));
+      }
+      
+      if ($feed->isPerempted() || $options['force-refresh'])
+      {
+        $this->grabFeedEntries($feed);
+      }
+      else
+      {
+        $this->logSection('results', 'feed is up to date');
+      }
+      
+      return;
+    }
+    
     if ($options['force-refresh'])
     {
       $feeds = sfPlanetFeedPeer::doSelect($c);
@@ -50,20 +70,10 @@ class sfPlanetGrabFeedsTask extends sfBaseTask
     
     foreach ($feeds as $feed)
     {
-      $this->logSection('feed', sprintf('Fetching %s', $feed->getTitle()));
-      $parsed_feed = sfFeedPeer::createFromWeb($feed->getFeedUrl());
-      $m = 0;
-      foreach ($parsed_feed->getItems() as $item)
-      {
-        $entry = sfPlanetFeedEntryPeer::createFromFeedItem($item, $feed);
-        $entry->save();
-        $m++;
-      }
-      $this->logSection('entries', ($m > 1 ? $m.' entries' : ($m > 0 ? 'one entry' : 'no entry')) . ' fetched');
-      $feed->setLastGrabbedAt(time());
-      $feed->save();
+      $this->grabFeedEntries($feed);
       $n++;
     }
+    
     $this->logSection('result', ($n > 1 ? $n.' feeds' : ($n > 0 ? 'one feed' : 'no feed')) . ' fetched');
   }
   

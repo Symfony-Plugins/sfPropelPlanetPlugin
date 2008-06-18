@@ -2,16 +2,7 @@
 This plugin provides (very) simple feed aggregation features to your symfony 1.1 
 powered application.
 
-{{{
-#!html
-<div style="border:solid 3px #ff8;padding:8px;background-color:#ffe;margin:5px 15%">
-  <strong>Notes:</strong>
-  <ol>
-    <li>this plugin is <strong>not</strong> compatible with symfony 1.0</li>
-    <li>this plugin is <strong>in a very alpha state</strong> and should be used with caution</li>
-  </ol>
-</div>
-}}}
+'''Note: this plugin isn't compatible with symfony 1.0'''
 
 == Installation ==
 The plugin and its dependecies can be installed using two methods, SVN or PEAR.
@@ -27,25 +18,19 @@ sfPropelActAsSluggableBehaviorPlugin http://svn.symfony-project.com/plugins/sfPr
 sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin/trunk
 }}}
 
-Then run the `svn update` command.
-
 == PEAR install ==
+'''Note that the PEAR package of this plugin has not been released yet'''. So
+the following lines do not apply for now. 
+
 Run the following commands within a bash prompt at the root of your symfony project:
 
 {{{
-$ php symfony plugin-install sfFeed2Plugin
-$ php symfony plugin-install sfWebBrowser
-$ php symfony plugin-install sfPropelActAsSluggableBehaviorPlugin
 $ php symfony plugin-install sfPropelPlanetPlugin
 }}}
 
 == After plugin(s) has been installed ==
-You'll have to edit your `config/propel.ini` file to allow use of behaviors:
-{{{
-propel.builder.addBehaviors = true
-}}}
+Run these commands within your project:
 
-Then run these commands within your project:
 {{{
 $ php symfony cache:clear
 $ php symfony propel:build-all-load <appname>
@@ -55,7 +40,7 @@ Where `<appname>` is the name of one of your existing apps.
 
 == Configuration ==
 There's pretty nothing to configure except by adding some customization to your 
-`app.yml` file. A bundled self-explanatory `app.yml-sample` is provided to help 
+`app.yml` file. A bundled self-explanatory `app.yml` is provided to help 
 yourself seeing what can be configured.
 
 == Usage ==
@@ -67,60 +52,63 @@ using the *nix [http://en.wikipedia.org/wiki/Cron CRON] utility.
 Web modules provides quick'n'dirty frontend and backend rough web interfaces to
 display and manage your data.
 
-=== Using the `planet:add-feed` task ===
-The `planet:grab-entries` allows to add and grab a new feed to your planet. Here
+=== Using the `planet:feed-add` task ===
+The `planet:feed-add` allows you to add and grab a new feed to your planet. Here
 is a sample call:
 {{{
-$ php symfony planet:add-feed <appname> -u http://feeds.feedburner.com/symfony/blog
+$ php symfony planet:feed-add <appname> http://feeds.feedburner.com/symfony/blog
 }}}
 
-Where `<appname>` is the name of one of your apps. This command will fetch the 
-provided feed url and related entries, and store them in your database.
+Where `<appname>` is the name of one of your apps, and the following url is the 
+feed url you want to add to your planet. This command will fetch its entries, 
+and store them in your database.
 
 To get help on available options, just type:
 {{{
-$ php symfony help planet:add-feed
-Usage:
- symfony planet:add-feed [--feed-url|-u="..."] [--active|-a] [--periodicity|-p[="..."]] [--no-grab|-s] [--max-entries|-m[="..."]] application
+$ php symfony help planet:feed-add
+ symfony planet:feed-add [--non-activate|-i] [--periodicity|-p[="..."]] [--no-grab|-s] [--max-entries|-m[="..."]] application feed-url
 
-Aliases: planet-add-feeds
+Aliases: planet-feed-add
 
 Arguments:
- application    The application name
+ application     The application name
+ feed-url        The feed url (rss, atom) to grab and add to the planet
 
 Options:
- --feed-url     (-u) The feed url to add
- --active       (-a) Activate the feed
- --periodicity  (-p) Periodicity in seconds (default: 3600)
- --no-grab      (-s) Do not grab and store the feed entries
- --max-entries  (-m) Max number of entries to grab and store (default: 0)
+ --non-activate  (-i) Do not activate the feed after saving it
+ --periodicity   (-p) Peremption time in seconds (default: 86400)
+ --no-grab       (-s) Do not grab and store the feed entries
+ --max-entries   (-m) Max number of entries to grab and store (default: 0)
 }}}
 
-=== Using the `planet:grab-feeds` task ===
+=== Using the `planet:feed-grab` task ===
 The `planet:grab-entries` updates perempted feed entries, I mean the ones which
 the `periodicity` value has been exceeded. 
 
 To launch the task, just run the following command:
 {{{
-$ php symfony planet:grab-feeds <appname>
+$ php symfony planet:feed-grab <appname>
 }}}
 
 To get help on available options, just type:
 {{{
-$ php symfony help planet:grab-feeds
+$ php symfony help planet:feed-grab
 Usage:
- symfony planet:grab-feeds [--force-refresh|-f] application
+ symfony planet:feed-grab [--force-refresh|-f] application [feed-slug]
 
-Aliases: planet-grab-feeds
+Aliases: planet-feed-grab
 
 Arguments:
  application      The application name
+ feed-slug        The feed slug (if not provided, all active feeds entries will be grabbed)
 
 Options:
  --force-refresh  (-f) Forces to grab and update all feeds, including those which are not perempted
 }}}
 
-=== Using bundled web modules === 
+=== Using bundled web modules ===
+The web modules are very rough for now. They will be enhanced later.
+
 ==== The `sfPlanetAdmin` web module ====
 The `sfPlanetAdmin` module provides admin features of your feeds entries. To 
 enable the module for an application, edit its `settings.yml` file as following:
