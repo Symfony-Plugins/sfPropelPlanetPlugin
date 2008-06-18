@@ -2,7 +2,16 @@
 This plugin provides (very) simple feed aggregation features to your symfony 1.1 
 powered application.
 
-'''Note: this plugin isn't compatible with symfony 1.0'''
+{{{
+#!html
+<div style="border:solid 3px #ff8;padding:8px;background-color:#ffe;margin:5px 15%">
+  <strong>Notes:</strong>
+  <ol>
+    <li>this plugin is <strong>not</strong> compatible with symfony 1.0</li>
+    <li>this plugin is <strong>in a very alpha state</strong> and should be used with caution</li>
+  </ol>
+</div>
+}}}
 
 == Installation ==
 The plugin and its dependecies can be installed using two methods, SVN or PEAR.
@@ -17,6 +26,8 @@ sfWebBrowser http://svn.symfony-project.com/plugins/sfWebBrowserPlugin/
 sfPropelActAsSluggableBehaviorPlugin http://svn.symfony-project.com/plugins/sfPropelActAsSluggableBehaviorPlugin/
 sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin/trunk
 }}}
+
+Then run the `svn update` command. 
 
 == PEAR install ==
 '''Note that the PEAR package of this plugin has not been released yet'''. So
