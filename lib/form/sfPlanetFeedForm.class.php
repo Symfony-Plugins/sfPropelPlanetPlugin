@@ -24,6 +24,7 @@ class sfPlanetFeedForm extends BasesfPlanetFeedForm
     ));
     $this->validatorSchema['feed_url'] = new sfValidatorUrl();
     $this->validatorSchema['periodicity'] = new sfValidatorChoice(array('choices' => array_keys(sfConfig::get('app_planet_periodicity', array()))));
+    $this->validatorSchema->setPostValidator(new sfValidatorPass());
 
     unset($this['last_grabbed_at'], $this['id'], $this['slug']);
   }
