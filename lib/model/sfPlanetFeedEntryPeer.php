@@ -8,26 +8,14 @@ class sfPlanetFeedEntryPeer extends BasesfPlanetFeedEntryPeer
 {
   
   /**
-   * Retrieves active feed entries, ordered by publication date DESC
+   * Generates a Criteria to retrieve active feed(s) entries
    *
-   * @param  int          $to    limit (optional)
-   * @param  int          $from  start (optional)
-   * @param  sfPlanetFeed $feed  feed  (optional)
-   * @return array
+   * @param  sfPlanetFeed  $feed  The feed instance (optional)
+   * @return Criteria
    */
-  public static function getList($to = null, $from = 0, sfPlanetFeed $feed = null)
+  public static function getActiveListCriteria(sfPlanetFeed $feed = null)
   {
     $c = new Criteria();
-    
-    if (!is_null($to) && $to > 0)
-    {
-      $c->setLimit($to);
-    }
-    
-    if (!is_null($from) && $from > 0)
-    {
-      $c->setOffset($from);
-    }
     
     if (!is_null($feed))
     {
@@ -38,7 +26,7 @@ class sfPlanetFeedEntryPeer extends BasesfPlanetFeedEntryPeer
     $c->add(sfPlanetFeedPeer::IS_ACTIVE, true);    
     $c->addDescendingOrderByColumn(self::PUBLISHED_AT);
     
-    return self::doSelectJoinsfPlanetFeed($c);
+    return $c;
   }
   
   /**

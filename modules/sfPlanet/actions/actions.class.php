@@ -1,25 +1,10 @@
 <?php
+require_once realpath(dirname(__FILE__).'/../lib/BasesfPlanetActions.class.php');
+
 /**
- * sfPlanet module actions
+ * sfPlanet module actions. Feel free to override it in your own frontend app
  *
  */
-class sfPlanetActions extends sfActions
-{
-  
-  /**
-   * Lists last entries
-   *
-   * @param sfWebRequest $request
-   */
-  public function executeList(sfWebRequest $request)
-  {
-    $this->entries = sfPlanetFeedEntryPeer::getList($to = null, $from = null, $feed = null);
-    if ('rss' === $request->getParameter('sf_format'))
-    {
-      $this->setLayout(false);
-      sfConfig::set('sf_web_debug', false);
-      $this->getResponse()->setHttpHeader('content-type', 'text/xml;charset=utf-8');
-    }
-  }
-  
+class sfPlanetActions extends BasesfPlanetActions
+{  
 }

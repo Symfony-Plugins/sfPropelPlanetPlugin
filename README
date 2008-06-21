@@ -5,11 +5,7 @@ powered application.
 {{{
 #!html
 <div style="border:solid 3px #ff8;padding:8px;background-color:#ffe;margin:5px 15%">
-  <strong>Notes:</strong>
-  <ol>
-    <li>this plugin is <strong>not</strong> compatible with symfony 1.0</li>
-    <li>this plugin is <strong>in a very alpha state</strong> and should be used with caution</li>
-  </ol>
+  This plugin is <strong>not</strong> compatible with symfony 1.0
 </div>
 }}}
 
@@ -30,14 +26,13 @@ sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin
 Then run the `svn update` command. 
 
 == PEAR install ==
-'''Note that the PEAR package of this plugin has not been released yet'''. So
-the following lines do not apply for now. 
-
 Run the following commands within a bash prompt at the root of your symfony project:
 
 {{{
 $ php symfony plugin-install sfPropelPlanetPlugin
 }}}
+
+Dependencies will be installed automatically.
 
 == After plugin(s) has been installed ==
 Run these commands within your project:
@@ -57,8 +52,8 @@ yourself seeing what can be configured.
 == Usage ==
 The plugin is bundled with two dedicated task and web modules. 
 
-Task can be used with from the command line interface, and you can schedule them
-using the *nix [http://en.wikipedia.org/wiki/Cron CRON] utility.
+Tasks can be used with from the command line interface, and you can schedule 
+them using the *nix [http://en.wikipedia.org/wiki/Cron CRON] utility.
 
 Web modules provides quick'n'dirty frontend and backend rough web interfaces to
 display and manage your data.
@@ -67,30 +62,15 @@ display and manage your data.
 The `planet:feed-add` allows you to add and grab a new feed to your planet. Here
 is a sample call:
 {{{
-$ php symfony planet:feed-add <appname> http://feeds.feedburner.com/symfony/blog
+$ php symfony planet:feed-add http://feeds.feedburner.com/symfony/blog
 }}}
 
-Where `<appname>` is the name of one of your apps, and the following url is the 
-feed url you want to add to your planet. This command will fetch its entries, 
-and store them in your database.
+Where the url is the feed url you want to add to your planet. This command will 
+fetch its entries, and store them in your database.
 
 To get help on available options, just type:
 {{{
 $ php symfony help planet:feed-add
-Usage:
- symfony planet:feed-add [--non-activate|-i] [--periodicity|-p[="..."]] [--no-grab|-s] [--max-entries|-m[="..."]] application feed-url
-
-Aliases: planet-feed-add
-
-Arguments:
- application     The application name
- feed-url        The feed url (rss, atom) to grab and add to the planet
-
-Options:
- --non-activate  (-i) Do not activate the feed after saving it
- --periodicity   (-p) Peremption time in seconds (default: 86400)
- --no-grab       (-s) Do not grab and store the feed entries
- --max-entries   (-m) Max number of entries to grab and store (default: 0)
 }}}
 
 === Using the `planet:feed-grab` task ===
@@ -99,31 +79,20 @@ the `periodicity` value has been exceeded.
 
 To launch the task, just run the following command:
 {{{
-$ php symfony planet:feed-grab <appname>
+$ php symfony planet:feed-grab
 }}}
 
 To get help on available options, just type:
 {{{
 $ php symfony help planet:feed-grab
-Usage:
- symfony planet:feed-grab [--force-refresh|-f] [--verbose|-v] application [feed-slug]
-
-Aliases: planet-feed-grab
-
-Arguments:
- application      The application name
- feed-slug        The feed slug (if not provided, all active feeds entries will be grabbed)
-
-Options:
- --force-refresh  (-f) Forces to grab and update all feeds, including those which are not perempted
- --verbose        (-v) Prints verbose messages during grabbing
 }}}
 
 === Using bundled web modules ===
-The web modules are very rough for now. They will be enhanced later.
+The web modules provides somewhat useful frontend and backend interfaces.
 
 ==== The `sfPlanetAdmin` web module ====
-The `sfPlanetAdmin` module provides admin features of your feeds entries. To 
+The `sfPlanetAdmin` module provides admin features of your feeds entries. From
+there you can add, edit, delete and list available feeds in your planet. To 
 enable the module for an application, edit its `settings.yml` file as following:
 
 {{{
@@ -145,7 +114,19 @@ all:
 }}}
 
 Then purge your application config cache with `php symfony cc` and browse to 
-`/sfPlanet/list`.
+`/planet/home/1.html` after having added some feeds to your planet.
+
+Pagination is handled automatically, but configurable in the `app.yml` file.
+
+Note that the plugin provided bundled symfony routes:
+ * `sf_planet_home`: The home of the planet, listing entries from all active 
+   feeds
+ * `sf_planet_feed_home`: The list of all entries for a given feed, passing its 
+   mandatory `slug` parameter
+
+An RSS feed for the planet is also available. Just point your browser at 
+`/planet/home/1.rss` and enjoy. You can even paginate yout planet feed browsing
+at `/planet/home/2.rss`, `/planet/home/3.rss` and so on.
 
 == License ==
 This plugin is released under the terms of the 
@@ -153,8 +134,9 @@ This plugin is released under the terms of the
 
 == Credits ==
 This plugin has been released by Nicolas Perriault <nperriault -> gmail.com> and
-uses these other plugins:
+uses these other nice plugins:
  
  * [wiki:sfFeed2Plugin sfFeed2Plugin]: handy feed utilities
  * [wiki:sfWebBrowser sfWebBrowser]: handy php web browsing utility
  * [wiki:sfPropelActAsSluggableBehaviorPlugin sfPropelActAsSluggableBehaviorPlugin]: handy slug generation utility
+ * [wiki:sfPagerNavigationPlugin sfPagerNavigationPlugin]: pagination helper

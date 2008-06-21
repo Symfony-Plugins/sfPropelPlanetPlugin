@@ -1,11 +1,32 @@
+# sfPropelPlanetPlugin configuration
+# This file will be parsed and the values below will be set. If you want to 
+# override them, just edit your own application/project app.yml file setting
+# the properties you want to override, eg.
+# 
+#    // file apps/frontend/config/app.yml
+#    all:
+#      planet:
+#        title:       Les flux de mes amis
+#        homepage:    http://monblog.net/planet
+#        description: Ils sont tous sympathiques
+#        language:    fr
 all:
   planet:
+
+    # Planet metadata
     title:            My Planet
     homepage:         "http://myplanet.foo/"
     description:      The planet I live on
     language:         en-us
-    editor_email:     me@myplanet.foo
-    webmaster_email:  webmaster@myplanet.foo
+    editor_email:     ~    
+    webmaster_email:  ~
+    
+    # Advanced configuration
+    display_feeds_list: true   # display the list of the active feeds on every page
+    max_per_page:       10     # max entries per page
+    routes_register:    true   # provides native routes for the sfPlanet web module
+
+    # Available periodicities, in seconds
     periodicity:
       60:    one minute
       300:   five minutes

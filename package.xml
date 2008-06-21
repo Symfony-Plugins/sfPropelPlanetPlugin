@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0"
+	xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	packagerversion="1.4.1" version="2.0"
+	xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+	<name>sfPropelPlanetPlugin</name>
+	<channel>pear.symfony-project.com</channel>
+	<summary>
+		This plugin provides (very) simple feed aggregation features to
+		your symfony 1.1 powered application.
+	</summary>
+	<description>
+		This plugin provides (very) simple feed aggregation features to
+		your symfony 1.1 powered application.
+	</description>
+	<lead>
+		<name>Nicolas Perriault</name>
+		<user>nicolas</user>
+		<email>nperriault@gmail.com</email>
+		<active>yes</active>
+	</lead>
+	<date>2008-06-21</date>
+	<version>
+		<release>0.6.0</release>
+		<api>0.6.0</api>
+	</version>
+	<stability>
+		<release>beta</release>
+		<api>beta</api>
+	</stability>
+	<license uri="http://www.symfony-project.com/license">
+		MIT license
+	</license>
+	<notes>-</notes>
+
+	<contents>
+		<dir name="/">
+			<dir name="config">
+				<file name="app.yml" role="data" />
+				<file name="config.php" role="data" />
+				<file name="schema.yml" role="data" />
+			</dir>
+			<dir name="data">
+				<dir name="fixtures">
+					<file name="fixtures.yml" role="data" />
+				</dir>
+			</dir>
+			<dir name="lib">
+				<dir name="form">
+					<dir name="base">
+						<file name="BasesfPlanetFeedEntryForm.class.php"
+							role="data" />
+						<file name="BasesfPlanetFeedForm.class.php"
+							role="data" />
+					</dir>
+					<file name="sfPlanetFeedEntryForm.class.php"
+						role="data" />
+					<file name="sfPlanetFeedForm.class.php" role="data" />
+				</dir>
+				<dir name="model">
+					<dir name="map">
+						<file name="sfPlanetFeedEntryMapBuilder.php"
+							role="data" />
+						<file name="sfPlanetFeedMapBuilder.php"
+							role="data" />
+					</dir>
+					<dir name="om">
+						<file name="BasesfPlanetFeed.php" role="data" />
+						<file name="BasesfPlanetFeedEntry.php"
+							role="data" />
+						<file name="BasesfPlanetFeedEntryPeer.php"
+							role="data" />
+						<file name="BasesfPlanetFeedPeer.php"
+							role="data" />
+					</dir>
+					<file name="sfPlanetFeed.php" role="data" />
+					<file name="sfPlanetFeedEntry.php" role="data" />
+					<file name="sfPlanetFeedEntryPeer.php" role="data" />
+					<file name="sfPlanetFeedPeer.php" role="data" />
+				</dir>
+				<dir name="routing">
+					<file name="sfPlanetRouting.class.php" role="data" />
+				</dir>
+				<dir name="task">
+					<dir name="base">
+						<file name="sfPlanetBaseTask.class.php"
+							role="data" />
+					</dir>
+					<file name="sfPlanetFeedAddTask.class.php"
+						role="data" />
+					<file name="sfPlanetFeedGrabTask.class.php"
+						role="data" />
+				</dir>
+			</dir>
+			<dir name="modules">
+				<dir name="sfPlanet">
+					<dir name="actions">
+						<file name="actions.class.php" role="data" />
+						<file name="components.class.php" role="data" />
+					</dir>
+					<dir name="lib">
+						<file name="BasesfPlanetActions.class.php"
+							role="data" />
+					</dir>
+					<dir name="templates">
+						<file name="_listFeeds.php" role="data" />
+						<file name="listSuccess.php" role="data" />
+						<file name="listSuccess.rss.php" role="data" />
+					</dir>
+				</dir>
+				<dir name="sfPlanetAdmin">
+					<dir name="actions">
+						<file name="actions.class.php" role="data" />
+					</dir>
+					<dir name="config">
+						<file name="generator.yml" role="data" />
+					</dir>
+					<dir name="templates" />
+				</dir>
+			</dir>
+			<file name="package.xml" role="data" />
+			<file name="package.xml.tpl" role="data" />
+			<file name="README" role="data" />
+			<dir name="test">
+				<dir name="unit">
+					<file name="sfPlanetFeedEntryPeerTest.php"
+						role="data" />
+					<file name="sfPlanetFeedPeerTest.php" role="data" />
+				</dir>
+			</dir>
+		</dir>
+	</contents>
+
+	<dependencies>
+		<required>
+			<php>
+				<min>5.2.0</min>
+				<max>6.0.0</max>
+			</php>
+			<pearinstaller>
+				<min>1.4.1</min>
+			</pearinstaller>
+			<package>
+				<name>sfPropelPlanetPlugin</name>
+				<channel>pear.symfony-project.com</channel>
+			</package>
+			<package>
+				<name>sfPropelActAsSluggableBehaviorPlugin</name>
+				<channel>pear.symfony-project.com</channel>
+			</package>
+			<package>
+				<name>sfWebBrowserPlugin</name>
+				<channel>pear.symfony-project.com</channel>
+			</package>
+			<package>
+				<name>sfFeed2Plugin</name>
+				<channel>pear.symfony-project.com</channel>
+			</package>
+			<package>
+				<name>sfPagerNavigationPlugin</name>
+				<channel>pear.symfony-project.com</channel>
+			</package>
+		</required>
+	</dependencies>
+
+	<phprelease></phprelease>
+
+	<changelog></changelog>
+</package>

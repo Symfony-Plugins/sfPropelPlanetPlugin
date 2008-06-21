@@ -7,6 +7,16 @@ class sfPlanetBaseTask extends sfBaseTask
 {
   
   /**
+   * Retrieves an available application name
+   *
+   * @return string
+   */
+  protected static function getDefaultAppName()
+  {
+    return array_pop(scandir(sfConfig::get('sf_apps_dir')));
+  }
+  
+  /**
    * Grab a feed from its Propel representation
    *
    * @param  sfPlanetFeed $feed     The Propel feed object
@@ -86,6 +96,8 @@ class sfPlanetBaseTask extends sfBaseTask
   }
   
   /**
+   * Implemented here because declared abstract in parent class
+   * 
    * @see sfTask
    */
   protected function execute($arguments = array(), $options = array())

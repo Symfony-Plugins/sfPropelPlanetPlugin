@@ -10,14 +10,14 @@
     <pubDate><?php echo date('c') ?></pubDate>
     <lastBuildDate><?php echo date('c') ?></lastBuildDate>
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
-    <generator>sfPropelPlanetPlugin</generator>
+    <generator><?php echo sfConfig::get('app_planet_generator', 'sfPropelPlanetPlugin') ?></generator>
     <?php if (sfConfig::get('app_planet_editor_email')): ?>
       <managingEditor><?php echo sfConfig::get('app_planet_editor_email') ?></managingEditor>
     <?php endif; ?>
     <?php if (sfConfig::get('app_planet_webmaster_email')): ?>
       <webMaster><?php echo sfConfig::get('app_planet_webmaster_email') ?></webMaster>
     <?php endif; ?>
-    <?php foreach ($entries as $entry): ?>
+    <?php foreach ($pager->getResults() as $entry): ?>
     <item>
       <title><?php echo $entry->getTitle() ?> (<?php echo $entry->getsfPlanetFeed()->getTitle() ?>)</title>
       <link><?php echo $entry->getLinkUrl() ?></link>

@@ -16,10 +16,14 @@ class sfPlanetFeedGrabTask extends sfPlanetBaseTask
     $this->namespace        = 'planet';
     $this->name             = 'feed-grab';
     $this->briefDescription = 'Grabs last planet feeds entries and store them in the database';
+    $this->detailedDescription = <<<EOF
+The [planet:grab-entries|INFO] updates perempted feed entries, ones which the 
+[periodicity|COMMENT] value has been exceeded.
+EOF;
     
     $this->addArguments(array(
-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
       new sfCommandArgument('feed-slug', sfCommandArgument::OPTIONAL, 'The feed slug (if not provided, all active feeds entries will be grabbed)'),
+      new sfCommandArgument('application', sfCommandArgument::OPTIONAL, 'The application name', self::getDefaultAppName()),
     ));
     
     $this->addOptions(array(

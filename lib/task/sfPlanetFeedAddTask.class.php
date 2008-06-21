@@ -16,10 +16,13 @@ class sfPlanetFeedAddTask extends sfPlanetBaseTask
     $this->namespace        = 'planet';
     $this->name             = 'feed-add';
     $this->briefDescription = 'Adds a new feed to the planet';
+    $this->detailedDescription = <<<EOF
+The [planet:feed-add|INFO] allows you to add and grab a new feed to your planet. 
+EOF;
     
     $this->addArguments(array(
-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
       new sfCommandArgument('feed-url', sfCommandArgument::REQUIRED, 'The feed url (rss, atom) to grab and add to the planet'),
+      new sfCommandArgument('application', sfCommandArgument::OPTIONAL, 'The application name', self::getDefaultAppName()),
     ));
     
     $this->addOptions(array(
