@@ -95,6 +95,8 @@ EOF;
       }
       if ($i > 0)
       {
+        $newFeed->setLastGrabbedAt(time());
+        $newFeed->save();
         $this->logSection('result', sprintf('saved %d entries for feed %s', $i, $newFeed->getSlug()));
       }
       else

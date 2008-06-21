@@ -22,9 +22,10 @@ all:
     webmaster_email:  ~
     
     # Advanced configuration
-    display_feeds_list: true   # display the list of the active feeds on every page
-    max_per_page:       10     # max entries per page
+    display_feeds_list: true   # displays the list of the active feeds on every page
+    max_per_page:       10     # sets max entries per page
     routes_register:    true   # provides native routes for the sfPlanet web module
+    xss_paranoid:       false  # set to true if you don't want html displayed on your planet (less shiny, but useful for untrusted sources)           
 
     # Available periodicities, in seconds
     periodicity:

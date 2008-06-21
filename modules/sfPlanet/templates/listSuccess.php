@@ -33,7 +33,11 @@
   <?php foreach ($pager->getResults() as $entry): ?>
     <div class="sf_planet_entry">
       <h3>
+        <?php if (sfConfig::get('sf_escaping_strategy')): ?>
+        <?php echo link_to($entry->getRawValue()->getTitle(), $entry->getLinkUrl()) ?>
+        <?php else: ?>
         <?php echo link_to($entry->getTitle(), $entry->getLinkUrl()) ?>
+        <?php endif; ?>
       </h3>
       <p class="sf_planet_entry_info">
         <?php if (!is_null($feed)): ?>
@@ -49,7 +53,17 @@
         <?php endif; ?>
       </p>
       <div class="sf_planet_entry_content">
-        <?php echo $entry->getContent() ?>
+        <?php if (sfConfig::get('sf_escaping_strategy')): ?>
+        <?php $content = $entry->getRawValue()->getContent() ?>
+        <?php else: ?>
+        <?php $content = $entry->getContent() ?>
+        <?php endif; ?>
+        <?php if (sfConfig::get('app_planet_xss_paranoid', true)): ?>
+        <?php sfLoader::loadHelpers('Text'); ?>
+        <?php echo simple_format_text(strip_tags($content)) ?>
+        <?php else: ?>
+        <?php echo $content ?>
+        <?php endif; ?>
       </div>
     </div>
   <?php endforeach; ?>

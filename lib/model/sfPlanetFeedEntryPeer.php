@@ -67,13 +67,14 @@ class sfPlanetFeedEntryPeer extends BasesfPlanetFeedEntryPeer
     $entry->setFeedId($feed->getId());
     $entry->setTitle($item->getTitle());
     $entry->setLinkUrl($item->getLink());
+    
     if ($item->getContent())
     {
       $entry->setContent($item->getContent());
     }
     else
     {
-      $entry->setContent(strip_tags($item->getDescription()));
+      $entry->setContent($item->getDescription());
     }
     $entry->setPublishedAt($item->getPubdate());
     
