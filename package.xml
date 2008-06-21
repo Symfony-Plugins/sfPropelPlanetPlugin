@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://pear.php.net/dtd/package-2.0"
-	xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	packagerversion="1.4.1" version="2.0"
-	xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
 	<name>sfPropelPlanetPlugin</name>
 	<channel>pear.symfony-project.com</channel>
 	<summary>
@@ -93,6 +89,7 @@
 						role="data" />
 				</dir>
 			</dir>
+			<file name="LICENSE" role="data" />
 			<dir name="modules">
 				<dir name="sfPlanet">
 					<dir name="actions">
@@ -122,41 +119,43 @@
 			<file name="package.xml" role="data" />
 			<file name="package.xml.tpl" role="data" />
 			<file name="README" role="data" />
-			<dir name="test">
-				<dir name="unit">
-					<file name="sfPlanetFeedEntryPeerTest.php"
-						role="data" />
-					<file name="sfPlanetFeedPeerTest.php" role="data" />
-				</dir>
-			</dir>
 		</dir>
 	</contents>
 
 	<dependencies>
 		<required>
 			<php>
-				<min>5.2.0</min>
+				<min>5.1.0</min>
 				<max>6.0.0</max>
 			</php>
+			
 			<pearinstaller>
 				<min>1.4.1</min>
 			</pearinstaller>
+			
 			<package>
-				<name>sfPropelPlanetPlugin</name>
+				<name>symfony</name>
 				<channel>pear.symfony-project.com</channel>
+				<min>1.1.0</min>
+				<max>1.2.0</max>
+				<exclude>1.2.0</exclude>
 			</package>
+			
 			<package>
 				<name>sfPropelActAsSluggableBehaviorPlugin</name>
-				<channel>pear.symfony-project.com</channel>
+				<channel>plugins.symfony-project.com</channel>
 			</package>
+			
 			<package>
 				<name>sfWebBrowserPlugin</name>
 				<channel>pear.symfony-project.com</channel>
 			</package>
+
 			<package>
 				<name>sfFeed2Plugin</name>
 				<channel>pear.symfony-project.com</channel>
 			</package>
+
 			<package>
 				<name>sfPagerNavigationPlugin</name>
 				<channel>pear.symfony-project.com</channel>

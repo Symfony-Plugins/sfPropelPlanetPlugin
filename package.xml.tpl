@@ -12,12 +12,12 @@
   </lead>
   <date>2008-01-03</date>
   <version>
-    <release>0.6.0</release>
-    <api>0.6.0</api>
+    <release>XXX</release>
+    <api>XXX</api>
   </version>
   <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>XXX</release>
+    <api>XXX</api>
   </stability>
   <license uri="http://www.symfony-project.com/license">MIT license</license>
   <notes>-</notes>
@@ -28,15 +28,18 @@
   <dependencies>
     <required>
       <php>
-        <min>5.2.0</min>
+        <min>5.1.0</min>
         <max>6.0.0</max>
       </php>
       <pearinstaller>
         <min>1.4.1</min>
       </pearinstaller>
       <package>
-        <name>sfPropelPlanetPlugin</name>
+        <name>symfony</name>
         <channel>pear.symfony-project.com</channel>
+        <min>1.1.0</min>
+        <max>1.2.0</max>
+        <exclude>1.2.0</exclude>
       </package>
       <package>
         <name>sfPropelActAsSluggableBehaviorPlugin</name>

@@ -29,7 +29,7 @@ Then run the `svn update` command.
 Run the following commands within a bash prompt at the root of your symfony project:
 
 {{{
-$ php symfony plugin-install sfPropelPlanetPlugin
+$ php symfony plugin-install -s beta sfPropelPlanetPlugin
 }}}
 
 Dependencies will be installed automatically.
