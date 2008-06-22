@@ -159,8 +159,8 @@ The same goes for RSS feeds, just use the `sf_format` magic value, like this:
 
 Last but not least, if you want to have your planet feed link added automagically 
 in the `<head/>` tag of your rendered HTML pages, you can use the bundled 
-`sfPlanetFeedLinkFilter` filer, adding this entry to the app where you enabled 
-the `sfPlanet` web module:
+`sfPlanetFeedLinkFilter` filter, adding this entry to the `filter.yml` file of 
+the app where you enabled the `sfPlanet` web module (yes, your frontend):
 {{{
 rendering: ~
 security:  ~
