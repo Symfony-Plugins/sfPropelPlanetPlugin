@@ -17,8 +17,16 @@ class sfPlanetFeedGrabTask extends sfPlanetBaseTask
     $this->name             = 'feed-grab';
     $this->briefDescription = 'Grabs last planet feeds entries and store them in the database';
     $this->detailedDescription = <<<EOF
-The [planet:grab-entries|INFO] updates perempted feed entries, ones which the 
+The [planet:grab-entries|INFO] updates outdated feed entries, ones which the 
 [periodicity|COMMENT] value has been exceeded.
+
+If you want to force grabbing for all feeds, even outdated ones:
+
+  $ php symfony planet:feed-grab [-f|COMMENT]
+
+If you want verbose logs when fetching feed entries:
+
+  $ php symfony planet:feed-grab [-v|COMMENT]
 EOF;
     
     $this->addArguments(array(
@@ -27,7 +35,7 @@ EOF;
     ));
     
     $this->addOptions(array(
-      new sfCommandOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not perempted'),
+      new sfCommandOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not outdated'),
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Prints verbose messages during grabbing'),      
     ));
   }
@@ -54,7 +62,7 @@ EOF;
         throw new sfCommandException(sprintf('Feed "%s" does not exist', $slug));
       }
       
-      if ($feed->isPerempted() || $options['force-refresh'])
+      if ($feed->isOutdated() || $options['force-refresh'])
       {
         $this->grabFeedEntries($feed, $options['verbose']);
       }
@@ -72,7 +80,7 @@ EOF;
     }
     else
     {
-      $feeds = sfPlanetFeedPeer::getPerempted($c);
+      $feeds = sfPlanetFeedPeer::getOutdated($c);
     }
     
     foreach ($feeds as $feed)

@@ -34,12 +34,12 @@ class sfPlanetFeedPeer extends BasesfPlanetFeedPeer
   }
   
   /**
-   * Retrieves perempted feeds
+   * Retrieves outdated feeds
    *
    * @param  Criteria $c
    * @return array|null
    */
-  public static function getPerempted(Criteria $c = null)
+  public static function getOutdated(Criteria $c = null)
   {
     $c = $c instanceof Criteria ? $c : new Criteria();
  
@@ -67,16 +67,16 @@ class sfPlanetFeedPeer extends BasesfPlanetFeedPeer
   }
   
   /**
-   * Grab entries from perempted feeds 
+   * Grab entries from outdated feeds 
    *
    * @param  Criteria   $c
    * @return int        Number of entries grabbed
    * @throws Exception
    */
-  public static function fetchPerempted(Criteria $c = null)
+  public static function fetchOutdated(Criteria $c = null)
   {
     $n = 0;
-    foreach (self::getPerempted($c) as $feed)
+    foreach (self::getOutdated($c) as $feed)
     {
       $parsed_feed = sfFeedPeer::createFromWeb($feed->getFeedUrl());
       
@@ -93,6 +93,41 @@ class sfPlanetFeedPeer extends BasesfPlanetFeedPeer
       $n++;
     }
     return $n;
+  }
+  
+  /**
+   * Creates a feed directly from a feed url, using the sfFeed2Plugin tools
+   *
+   * @param  string  $url          The feed url
+   * @param  int     $periodicity  The peremption time for the feed (default: one day)
+   * @param  Boolean $activate     Activate the feed? (default: true)
+   * @return sfPlanetFeed          The created feed
+   * @throws Exception             If the feed cannot be fetched
+   * @throws PropelException       If an SQL error occured or if feed url already exists
+   */
+  public static function createFromWeb($url, $periodicity = 86400, $activate = true)
+  {
+    $feed = sfFeedPeer::createFromWeb($url);
+    
+    if (self::feedExists($url))
+    {
+      throw new PropelException(sprintf('Feed "%s" already exists in database', $url));
+    }
+    
+    $newFeed = new sfPlanetFeed();
+    
+    $newFeed->fromArray(array(
+      'title'       => $feed->getTitle(),
+      'description' => $feed->getDescription(),
+      'homepage'    => $feed->getLink(),
+      'feed_url'    => $url,
+      'is_active'   => $activate ? true : false,
+      'periodicity' => $periodicity,
+    ), BasePeer::TYPE_FIELDNAME);
+    
+    $newFeed->save();
+    
+    return $newFeed;
   }
   
 }

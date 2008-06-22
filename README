@@ -74,7 +74,7 @@ $ php symfony help planet:feed-add
 }}}
 
 === Using the `planet:feed-grab` task ===
-The `planet:grab-entries` updates perempted feed entries, I mean the ones which
+The `planet:grab-entries` updates outdated feed entries, I mean the ones which
 the `periodicity` value has been exceeded. 
 
 To launch the task, just run the following command:

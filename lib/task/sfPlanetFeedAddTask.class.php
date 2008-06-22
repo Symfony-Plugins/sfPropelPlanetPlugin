@@ -17,7 +17,27 @@ class sfPlanetFeedAddTask extends sfPlanetBaseTask
     $this->name             = 'feed-add';
     $this->briefDescription = 'Adds a new feed to the planet';
     $this->detailedDescription = <<<EOF
-The [planet:feed-add|INFO] allows you to add and grab a new feed to your planet. 
+The [planet:feed-add|INFO] allows you to add and grab a new feed to your planet.
+
+To add a feed to your planet and grab its entries, type for example:
+
+  $ php symfony planet:feed-add http://rss.slashdot.org/Slashdot/slashdot
+
+If you don't want to fetch entries at all:
+
+  $ php symfony planet:feed-add [-s|COMMENT] [http://rss.slashdot.org/Slashdot/slashdot|INFO]
+
+If you want to set the peremption time for your feed to two hours (7200 seconds):
+
+  $ php symfony planet:feed-add [-p 7200|COMMENT] [http://rss.slashdot.org/Slashdot/slashdot|INFO]
+
+If you just want to fetch the last 5 entries from your feed:
+
+  $ php symfony planet:feed-add [-m 5|COMMENT] [http://rss.slashdot.org/Slashdot/slashdot|INFO]
+
+If you want the two features above in one command call:
+
+  $ php symfony planet:feed-add [-p 7200 -m 5|COMMENT] [http://rss.slashdot.org/Slashdot/slashdot|INFO]
 EOF;
     
     $this->addArguments(array(
@@ -50,54 +70,27 @@ EOF;
     
     try
     {
-      $feed = sfFeedPeer::createFromWeb($url);
+      $newFeed = sfPlanetFeedPeer::createFromWeb($url, $options['periodicity'], !$option['non-activate']);
+    }
+    catch (PropelException $e)
+    {
+      throw new sfCommandException(sprintf('Unable to create ad store feed from url %s: %s', $url, $e->getMessage()));
     }
     catch (Exception $e)
     {
-      throw new sfCommandException(sprintf('No feed can be retrieved from url %s', $url));
+      throw new sfCommandException(sprintf('No feed can be retrieved from url %s: %s', $url, $e->getMessage()));
     }
-    
-    // Create feed
-    if (sfPlanetFeedPeer::feedExists($url))
-    {
-      
-      throw new sfCommandException(sprintf('Feed "%s" already exists in database', $url));
-    }
-    
-    $newFeed = new sfPlanetFeed();
-    
-    $newFeed->fromArray(array(
-      'title'       => $feed->getTitle(),
-      'description' => $feed->getDescription(),
-      'homepage'    => $feed->getLink(),
-      'feed_url'    => $url,
-      'is_active'   => !$options['non-activate'],
-      'periodicity' => (int)$options['periodicity'],
-    ), BasePeer::TYPE_FIELDNAME); 
-    
-    $newFeed->save();
     
     $this->logSection('feed', sprintf('added feed "%s"', $newFeed->getSlug()));
     
     // Grab entries
     if (!$options['no-grab'])
     {
-      $i = 0;
-      foreach ($feed->getItems() as $item)
+      $numEntries = $newFeed->fetchEntries($options['max-entries']);
+      
+      if ($numEntries > 0)
       {
-        $this->grabFeedEntry($item, $newFeed);
-        $i++;
-        
-        if ($options['max-entries'] > 0 && $i >= $options['max-entries'])
-        {
-          break;
-        }
-      }
-      if ($i > 0)
-      {
-        $newFeed->setLastGrabbedAt(time());
-        $newFeed->save();
-        $this->logSection('result', sprintf('saved %d entries for feed %s', $i, $newFeed->getSlug()));
+        $this->logSection('result', sprintf('saved %d entries for feed %s', $numEntries, $newFeed->getSlug()));
       }
       else
       {

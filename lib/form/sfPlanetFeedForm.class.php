@@ -4,12 +4,18 @@
  *
  * @package    form
  * @subpackage sf_planet_feed
- * @version    SVN: $Id: sfPropelFormTemplate.php 6174 2007-11-27 06:22:40Z fabien $
  */
 class sfPlanetFeedForm extends BasesfPlanetFeedForm
 {
   public function configure()
   {
+    $this->setDefaults(array(
+      'feed_url'    => 'http://',
+      'homepage'    => 'http://',
+      'periodicity' => 86400,
+      'is_active'   => true,
+    ));
+    
     $this->widgetSchema['title']       = new sfWidgetFormInput();
     $this->widgetSchema['description'] = new sfWidgetFormTextarea();
     $this->widgetSchema['homepage']    = new sfWidgetFormInput();
