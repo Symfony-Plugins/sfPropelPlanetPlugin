@@ -13,7 +13,7 @@ class sfPlanetAdminActions extends autosfPlanetAdminActions
   public function preExecute()
   {
     sfLoader::loadHelpers('I18n');
-    $this->getResponse()->addStylesheet('/sfPropelPlanetPlugin/sf_planet_admin');
+    $this->getResponse()->addStylesheet('/sfPropelPlanetPlugin/css/sf_planet_admin.css');
     $this->periodicity = sfConfig::get('app_planet_periodicity', array());
   }
   

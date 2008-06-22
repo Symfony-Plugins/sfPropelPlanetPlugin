@@ -1,0 +1,39 @@
+div#sf_planet_admin {
+  font-family: Arial, Helvetica, sans;
+  font-size: 0.9em;
+}
+
+div#sf_planet_admin table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+div#sf_planet_admin thead {
+  background-color: #ddd;
+}
+
+div#sf_planet_admin th {
+  text-align: left;
+}
+
+div#sf_planet_admin tr.odd {
+  background-color: #eee;
+}
+
+div#sf_planet_admin td, div#sf_planet_admin th {
+  padding: 0.2em 0.4em;
+}
+
+p.sf_planet_notice {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  padding: 0.4em;
+}
+
+p.sf_planet_warning {
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  padding: 0.4em;
+}
