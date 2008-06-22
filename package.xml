@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package xmlns="http://pear.php.net/dtd/package-2.0"
+	xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	packagerversion="1.4.1" version="2.0"
+	xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
 	<name>sfPropelPlanetPlugin</name>
 	<channel>pear.symfony-project.com</channel>
 	<summary>
@@ -16,10 +20,10 @@
 		<email>nperriault@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2008-06-21</date>
+	<date>2008-06-22</date>
 	<version>
-		<release>0.6.0</release>
-		<api>0.6.0</api>
+		<release>0.7.0</release>
+		<api>0.7.0</api>
 	</version>
 	<stability>
 		<release>beta</release>
@@ -43,6 +47,10 @@
 				</dir>
 			</dir>
 			<dir name="lib">
+				<dir name="filter">
+					<file name="sfPlanetFeedLinkFilter.class.php"
+						role="data" />
+				</dir>
 				<dir name="form">
 					<dir name="base">
 						<file name="BasesfPlanetFeedEntryForm.class.php"
@@ -53,6 +61,8 @@
 					<file name="sfPlanetFeedEntryForm.class.php"
 						role="data" />
 					<file name="sfPlanetFeedForm.class.php" role="data" />
+					<file name="sfPlanetFeedUrlForm.class.php"
+						role="data" />
 				</dir>
 				<dir name="model">
 					<dir name="map">
@@ -113,12 +123,28 @@
 					<dir name="config">
 						<file name="generator.yml" role="data" />
 					</dir>
-					<dir name="templates" />
+					<dir name="lib">
+						<file name="BasesfPlanetAdminActions.class.php"
+							role="data" />
+					</dir>
+					<dir name="templates">
+						<file name="_menu.php" role="data" />
+						<file name="_messages.php" role="data" />
+						<file name="createFromFeedUrlSuccess.php"
+							role="data" />
+						<file name="indexSuccess.php" role="data" />
+					</dir>
 				</dir>
 			</dir>
 			<file name="package.xml" role="data" />
 			<file name="package.xml.tpl" role="data" />
 			<file name="README" role="data" />
+			<dir name="web">
+				<dir name="css">
+					<file name="sf_planet.css" role="data" />
+					<file name="sf_planet_admin.css" role="data" />
+				</dir>
+			</dir>
 		</dir>
 	</contents>
 
@@ -128,37 +154,41 @@
 				<min>5.1.0</min>
 				<max>6.0.0</max>
 			</php>
-			
 			<pearinstaller>
 				<min>1.4.1</min>
 			</pearinstaller>
-			
 			<package>
 				<name>symfony</name>
 				<channel>pear.symfony-project.com</channel>
-				<min>1.1.0</min>
+				<min>1.0.9999</min>
 				<max>1.2.0</max>
 				<exclude>1.2.0</exclude>
 			</package>
-			
 			<package>
 				<name>sfPropelActAsSluggableBehaviorPlugin</name>
-				<channel>plugins.symfony-project.com</channel>
+				<channel>pear.symfony-project.com</channel>
+				<min>0.2.0</min>
+        <max>1.1.0</max>
+        <exclude>1.1.0</exclude>
 			</package>
-			
 			<package>
 				<name>sfWebBrowserPlugin</name>
 				<channel>pear.symfony-project.com</channel>
+				<min>1.0.0</min>
+        <max>1.1.0</max>
+        <exclude>1.1.0</exclude>
 			</package>
-
 			<package>
 				<name>sfFeed2Plugin</name>
 				<channel>pear.symfony-project.com</channel>
+				<min>0.9.4</min>
+        <max>1.0.0</max>
 			</package>
-
 			<package>
 				<name>sfPagerNavigationPlugin</name>
 				<channel>pear.symfony-project.com</channel>
+				<min>1.0.0</min>
+        <max>1.2.0</max>
 			</package>
 		</required>
 	</dependencies>
