@@ -13,9 +13,10 @@ powered application.
 The plugin and its dependecies can be installed using two methods, SVN or PEAR.
 
 === SVN install ===
-Edit the `svn:externals` property to the `plugins` directory of your symfony
-project and add these lines if they don't exist yet:
+You must have an existing symfony project versionned in a subversion repository.
 
+Edit the `svn:externals` property of the `plugins` directory of your symfony
+project and add these lines if they don't exist yet:
 {{{
 sfFeed2Plugin http://svn.symfony-project.com/plugins/sfFeed2Plugin/
 sfWebBrowser http://svn.symfony-project.com/plugins/sfWebBrowserPlugin/
@@ -23,7 +24,16 @@ sfPropelActAsSluggableBehaviorPlugin http://svn.symfony-project.com/plugins/sfPr
 sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin/trunk
 }}}
 
-Then run the `svn update` command. 
+Now edit the `svn:externals` property of the `web` directory of your project and
+type:
+{{{
+sfPropelPlanetPlugin http://svn.symfony-project.com/plugins/sfPropelPlanetPlugin/trunk/web
+}}}
+
+The later step is required if you want to have some styling using the web 
+modules.
+
+Last but not least, run the `svn update` command from the root of your project. 
 
 == PEAR install ==
 Run the following commands within a bash prompt at the root of your symfony project:
@@ -48,10 +58,8 @@ Where `<appname>` is the name of one of your existing apps.
 Planet configuration is mainly done in the `app.yml` file. A bundled `app.yml` 
 is provided to help yourself seeing what can be configured.
 
-Here's an overview of what can be configured through this file:
-{{{
-[[Include(source:plugins/sfPropelPlanetPlugin/trunk/config/app.yml, text/plain)]]
-}}}
+You can have an overview of what can be configured 
+[browser:plugins/sfPropelPlanetPlugin/trunk/config/app.yml reading the bundled file].
 
 == Usage ==
 The plugin is bundled with two dedicated task and web modules. 
