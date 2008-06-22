@@ -3,6 +3,8 @@
  * Simple form with just one input field for feed url. This one doesn't extends 
  * sfPlanetFeedForm to prevent loading the heavy sfPropelForm stuff.
  *
+ * @package    form
+ * @subpackage sf_planet_feed_url
  */
 class sfPlanetFeedUrlForm extends sfForm
 {

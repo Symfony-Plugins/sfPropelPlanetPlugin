@@ -14,12 +14,12 @@ all:
   planet:
 
     # Planet metadata
-    title:            My Planet
-    homepage:         "http://myplanet.foo/"
-    description:      The planet I live on
-    language:         en-us
-    editor_email:     ~    
-    webmaster_email:  ~
+    title:            My Planet               # The title of your planet
+    homepage:         "http://myplanet.foo/"  # The url of the homepage of your website/planet
+    description:      The planet I live on    # A short description of your planet
+    language:         en-us                   # The main language of aggregated entries
+    editor_email:     ~                       # The editor email address
+    webmaster_email:  ~                       # The webmaster email address
     
     # Advanced configuration
     display_feeds_list: true   # displays the list of the active feeds on every page
@@ -27,7 +27,7 @@ all:
     routes_register:    true   # provides native routes for the sfPlanet web module
     xss_paranoid:       false  # set to true if you don't want html displayed on your planet (less shiny, but useful for untrusted sources)           
 
-    # Available periodicities, in seconds
+    # Available periodicities, in seconds. This will fill the according admin selectboxes
     periodicity:
       60:    one minute
       300:   five minutes

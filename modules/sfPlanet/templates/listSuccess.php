@@ -21,7 +21,7 @@
   </div>
   <?php endif; ?>
   
-  <h3>
+  <h2>
     <?php if (!is_null($feed)): ?>
       <?php echo __('Entries from %site%', 
                     array('%site%' => !is_null($feed->getHomepage()) ? 
@@ -30,7 +30,7 @@
     <?php else: ?>
       <?php echo __('All entries') ?>
     <?php endif; ?>
-  </h3>
+  </h2>
   
   <div class="sf_planet_list">
     <?php if (isset($pager) && $pager->getNbResults() > 0): ?>
@@ -85,6 +85,8 @@
     <?php endif; ?>
   </div>
   
-  <p class="sf_planet_footer"><?php echo __('Powered by symfony and sfPropelPlanetPlugin') ?></p>
+  <p class="sf_planet_footer">
+    <?php echo __('Powered by symfony and sfPropelPlanetPlugin') ?>
+  </p>
 
 </div>

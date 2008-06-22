@@ -42,7 +42,7 @@ class BasesfPlanetActions extends sfActions
     {
       $this->setLayout(false);
       sfConfig::set('sf_web_debug', false);
-      $this->getResponse()->setHttpHeader('content-type', 'text/xml;charset=utf-8');
+      $this->getResponse()->setContentType('text/xml;charset=utf-8');
     }
   }
   

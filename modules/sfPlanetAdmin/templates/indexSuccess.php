@@ -24,7 +24,13 @@
     <tbody>
       <?php foreach ($sf_planet_feedList as $i => $sf_planet_feed): ?>
       <tr class="<?php echo 0 == $i % 2 ? '' : 'odd' ?>">
-        <td><?php echo link_to(truncate_text($sf_planet_feed->getTitle(), 80), $sf_planet_feed->getHomepage()) ?></td>
+        <td>
+          <?php if ($sf_planet_feed->getHomepage()): ?>
+            <?php echo link_to(truncate_text($sf_planet_feed->getTitle(), 80), $sf_planet_feed->getHomepage()) ?>
+          <?php else: ?>
+            <?php echo truncate_text($sf_planet_feed->getTitle(), 80) ?>
+          <?php endif; ?>
+        </td>
         <td><?php echo link_to(__('Feed'), $sf_planet_feed->getFeedUrl()) ?></td>
         <td><?php echo var_export($sf_planet_feed->getIsActive(), true) ?></td>
         <td><?php echo $periodicity[$sf_planet_feed->getPeriodicity()] ?></td>

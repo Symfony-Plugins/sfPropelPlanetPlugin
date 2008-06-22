@@ -45,15 +45,24 @@ $ php symfony propel:build-all-load <appname>
 Where `<appname>` is the name of one of your existing apps.
 
 == Configuration ==
-There's pretty nothing to configure except by adding some customization to your 
-`app.yml` file. A bundled self-explanatory `app.yml` is provided to help 
-yourself seeing what can be configured.
+Planet configuration is mainly done in the `app.yml` file. A bundled `app.yml` 
+is provided to help yourself seeing what can be configured.
+
+Here's an overview of what can be configured through this file:
+{{{
+[[Include(source:plugins/sfPropelPlanetPlugin/trunk/config/app.yml, text/plain)]]
+}}}
 
 == Usage ==
 The plugin is bundled with two dedicated task and web modules. 
 
 Tasks can be used with from the command line interface, and you can schedule 
-them using the *nix [http://en.wikipedia.org/wiki/Cron CRON] utility.
+them using the *nix [http://en.wikipedia.org/wiki/Cron CRON] utility, eg.:
+{{{
+0 5 * * * php /path/to/your/symfony/project/symfony planet:grab-feed
+}}}
+
+This crontab entry will schedule outdated feeds fetching every morning at 5am.
 
 Web modules provides quick'n'dirty frontend and backend rough web interfaces to
 display and manage your data.
@@ -65,8 +74,8 @@ is a sample call:
 $ php symfony planet:feed-add http://feeds.feedburner.com/symfony/blog
 }}}
 
-Where the url is the feed url you want to add to your planet. This command will 
-fetch its entries, and store them in your database.
+Where the provided url is the feed url you want to add to your planet. This 
+command will fetch its entries, and store them in your database.
 
 To get help on available options, just type:
 {{{
@@ -114,7 +123,7 @@ all:
 }}}
 
 Then purge your application config cache with `php symfony cc` and browse to 
-`/planet/home/1.html` after having added some feeds to your planet.
+`/planet/1.html` after having added some feeds to your planet.
 
 Pagination is handled automatically, but configurable in the `app.yml` file.
 
@@ -125,8 +134,45 @@ Note that the plugin provided bundled symfony routes:
    mandatory `slug` parameter
 
 An RSS feed for the planet is also available. Just point your browser at 
-`/planet/home/1.rss` and enjoy. You can even paginate yout planet feed browsing
-at `/planet/home/2.rss`, `/planet/home/3.rss` and so on.
+`/planet/1.rss` and enjoy. You can even paginate yout planet feed browsing
+at `/planet/2.rss`, `/planet/3.rss` and so on.
+
+By default, if you want to make a link pointing at the HTML home of your planet, 
+just use:
+{{{
+#!php
+<?php echo link_to('my planet', '@sf_planet_home') ?>
+}}}
+
+If you want to make a link to a particular feed, just make a link using its 
+`slug` passed as a parameter:
+{{{
+#!php
+<?php echo link_to('symfony blog entries', '@sf_planet_feed_home?slug=symfony-blog') ?>
+}}}
+
+The same goes for RSS feeds, just use the `sf_format` magic value, like this:
+{{{
+#!php
+<?php echo link_to('my planet as an RSS feed', '@sf_planet_home?sf_format=rss') ?>
+}}}
+
+Last but not least, if you want to have your planet feed link added automagically 
+in the `<head/>` tag of your rendered HTML pages, you can use the bundled 
+`sfPlanetFeedLinkFilter` filer, adding this entry to the app where you enabled 
+the `sfPlanet` web module:
+{{{
+rendering: ~
+security:  ~
+
+# insert your own filters here
+planet:
+  class:   sfPlanetFeedLinkFilter
+
+cache:     ~
+common:    ~
+execution: ~
+}}}
 
 == License ==
 This plugin is released under the terms of the 
@@ -134,7 +180,7 @@ This plugin is released under the terms of the
 
 == Credits ==
 This plugin has been released by Nicolas Perriault <nperriault -> gmail.com> and
-uses these other nice plugins:
+makes deep use of these other nice plugins:
  
  * [wiki:sfFeed2Plugin sfFeed2Plugin]: handy feed utilities
  * [wiki:sfWebBrowser sfWebBrowser]: handy php web browsing utility
