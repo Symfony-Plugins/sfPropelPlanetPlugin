@@ -46,7 +46,7 @@ class sfPlanetFeedPeer extends BasesfPlanetFeedPeer
     $criterion = $c->getNewCriterion (
       self::LAST_GRABBED_AT, NULL, Criteria::ISNULL
     )->addOr($c->getNewCriterion (
-      self::LAST_GRABBED_AT, self::getPeremptionClause(), Criteria::CUSTOM
+      self::LAST_GRABBED_AT, self::getOutOfDateClause(), Criteria::CUSTOM
     ));
     $c->addAnd($criterion);
     
@@ -54,12 +54,12 @@ class sfPlanetFeedPeer extends BasesfPlanetFeedPeer
   }
   
   /**
-   * Generates the SQL peremption clause
+   * Generates the SQL out of date clause
    *
    * FIXME:  this works only for mysql
    * @return string
    */
-  public static function getPeremptionClause()
+  public static function getOutOfDateClause()
   {
     return sprintf('UNIX_TIMESTAMP(%s) <= UNIX_TIMESTAMP() - %s',
                    self::LAST_GRABBED_AT,
@@ -99,7 +99,7 @@ class sfPlanetFeedPeer extends BasesfPlanetFeedPeer
    * Creates a feed directly from a feed url, using the sfFeed2Plugin tools
    *
    * @param  string  $url          The feed url
-   * @param  int     $periodicity  The peremption time for the feed (default: one day)
+   * @param  int     $periodicity  The time for the feed to be outdated (default: one day)
    * @param  Boolean $activate     Activate the feed? (default: true)
    * @return sfPlanetFeed          The created feed
    * @throws Exception             If the feed cannot be fetched

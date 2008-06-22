@@ -21,7 +21,7 @@
           </td>
         </tr>
         <tr>
-          <th><label for="sf_planet_feed_periodicity"><?php echo __('Peremption time') ?></label></th>
+          <th><label for="sf_planet_feed_periodicity"><?php echo __('Periodicity') ?></label></th>
           <td>
             <?php echo $form['periodicity']->renderError() ?>
             <?php echo $form['periodicity'] ?>

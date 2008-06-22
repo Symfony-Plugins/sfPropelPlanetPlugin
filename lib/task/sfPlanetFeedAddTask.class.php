@@ -27,7 +27,7 @@ If you don't want to fetch entries at all:
 
   $ php symfony planet:feed-add [-s|COMMENT] [http://rss.slashdot.org/Slashdot/slashdot|INFO]
 
-If you want to set the peremption time for your feed to two hours (7200 seconds):
+If you want to set the time for your feed to be outdated to two hours (7200 seconds):
 
   $ php symfony planet:feed-add [-p 7200|COMMENT] [http://rss.slashdot.org/Slashdot/slashdot|INFO]
 
@@ -47,7 +47,7 @@ EOF;
     
     $this->addOptions(array(
       new sfCommandOption('non-activate', 'i', sfCommandOption::PARAMETER_NONE, 'Do not activate the feed after saving it'),
-      new sfCommandOption('periodicity', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Peremption time in seconds', 86400),
+      new sfCommandOption('periodicity', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Time in seconds for the feed to be out-of-date', 86400),
       new sfCommandOption('no-grab', 's', sfCommandOption::PARAMETER_NONE, 'Do not grab and store the feed entries'),
       new sfCommandOption('max-entries', 'm', sfCommandOption::PARAMETER_OPTIONAL, 'Max number of entries to grab and store', 0),
       

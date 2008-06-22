@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, Helvetica, sans;
+  font-size: 13px;
+  background-color: #d2d2d2;
+  margin: 0;
+  padding: 0;
+}
+
+#sf_planet img {
+  border: none;
+}
+
+#sf_planet p, #sf_planet li {
+  line-height: 1.4em;  
+}
+
+#sf_planet pre, #sf_planet code, #sf_planet tt {
+  font-family: Monaco, "Courier New", Courier, monospace;
+  font-size: .95em;  
+}
+
+#sf_planet code, #sf_planet tt {
+  background: #eee;
+  padding: 0 .2em;
+}
+
+#sf_planet pre {
+  overflow: auto;
+  padding: 1em;
+  background: #eee;
+  border: 1px solid #ddd;  
+}
+
+#sf_planet {
+  background-color: white;
+  width: 910px;
+  margin: 2em auto;
+  padding: 1em;
+  border: 1px solid #aaa;
+}
+
+#sf_planet h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.sf_planet_feeds {
+  float: right;
+  width: 300px;
+  margin: -85px 0 0 0;
+}
+  .sf_planet_feeds ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }

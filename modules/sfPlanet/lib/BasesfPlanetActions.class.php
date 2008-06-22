@@ -7,6 +7,15 @@ class BasesfPlanetActions extends sfActions
 {
   
   /**
+   * This code will be executed before all actions
+   *
+   */
+  public function preExecute()
+  {
+    $this->getResponse()->addStylesheet('/sfPropelPlanetPlugin/css/sf_planet.css');
+  }
+  
+  /**
    * Lists last entries
    *
    * @param    sfWebRequest $request

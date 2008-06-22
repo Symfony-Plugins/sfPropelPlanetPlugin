@@ -1,17 +1,24 @@
 sfPlanetFeed:
   sfFeed_1:
-    title:           Slashdot
-    description:     Stuff for nerds
-    homepage:        'http://slashdot.org/'
-    feed_url:        'http://rss.slashdot.org/Slashdot/slashdot'
+    title:           "symfony tag on del.icio.us"
+    description:     ~
+    homepage:        "http://del.icio.us/tag/symfony"
+    feed_url:        "http://feeds.delicious.com/rss/symfony"
     is_active:       1
-    last_grabbed_at: "2008-01-01 00:00:00"
+    last_grabbed_at: <?php echo date('Y-m-d H:i:s', time() - 60) . "\n" ?>
     periodicity:     3600
   sfFeed_2:
-    title:           Digg.com homepage
-    description:     Last entries
-    homepage:        'http://digg.com/'
-    feed_url:        'http://digg.com/rss/index.xml'
+    title:           "symfony Web PHP Framework >> Blog"
+    description:     "The symfony project official weblog"
+    homepage:        "http://www.symfony-project.org/blog/"
+    feed_url:        "http://feeds.feedburner.com/symfony/blog"
     is_active:       1
-    last_grabbed_at: <?php echo date('Y-m-d H:i:s', time() + 7200) . "\n" ?>
+    last_grabbed_at: <?php echo date('Y-m-d H:i:s', time() - 7200) . "\n" ?>
+    periodicity:     3600
+  sfFeed_3:
+    title:           "symfony community feed"
+    description:     "All blogs talking about symfony"
+    feed_url:        "http://feeds.feedburner.com/symfony/planet"
+    is_active:       1
+    last_grabbed_at: <?php echo date('Y-m-d H:i:s', time() - 7200) . "\n" ?>
     periodicity:     3600

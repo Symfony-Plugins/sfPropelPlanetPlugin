@@ -77,6 +77,7 @@ class sfPlanetAdminActions extends autosfPlanetAdminActions
     {
       $this->getUser()->setFlash('warning', __('Unable to fetch feed entries: %msg%', 
                                                array('%msg%' => $e->getMessage())));
+      $this->setTemplate('index');
       return sfView::SUCCESS;
     }
     
@@ -100,6 +101,8 @@ class sfPlanetAdminActions extends autosfPlanetAdminActions
     {
       $this->getUser()->setFlash('warning', __('Unable to fetch outdated feeds: %msg%', 
                                                array('%msg%' => $e->getMessage())));
+      $this->setTemplate('index');
+      return sfView::SUCCESS;
     }
     
     $this->getUser()->setFlash('notice', __('Outdated feeds updated'));

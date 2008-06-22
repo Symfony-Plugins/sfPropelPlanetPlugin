@@ -1,4 +1,4 @@
-<?php use_helper('I18n', 'Date'); ?>
+<?php use_helper('I18n', 'Date', 'Text'); ?>
 
 <div id="sf_planet_admin">
   
@@ -11,8 +11,7 @@
   <table>
     <thead>
       <tr>
-        <th><?php echo __('Title') ?></th>
-        <th><?php echo __('Homepage') ?></th>
+        <th><?php echo __('Website') ?></th>
         <th><?php echo __('Feed url') ?></th>
         <th><?php echo __('Active') ?></th>
         <th><?php echo __('Periodicity') ?></th>
@@ -25,8 +24,7 @@
     <tbody>
       <?php foreach ($sf_planet_feedList as $i => $sf_planet_feed): ?>
       <tr class="<?php echo 0 == $i % 2 ? '' : 'odd' ?>">
-        <td><?php echo link_to($sf_planet_feed->getTitle(), 'sfPlanetAdmin/edit?id='.$sf_planet_feed->getId()) ?></td>
-        <td><?php echo link_to(__('Homepage'), $sf_planet_feed->getHomepage()) ?></td>
+        <td><?php echo link_to(truncate_text($sf_planet_feed->getTitle(), 80), $sf_planet_feed->getHomepage()) ?></td>
         <td><?php echo link_to(__('Feed'), $sf_planet_feed->getFeedUrl()) ?></td>
         <td><?php echo var_export($sf_planet_feed->getIsActive(), true) ?></td>
         <td><?php echo $periodicity[$sf_planet_feed->getPeriodicity()] ?></td>
