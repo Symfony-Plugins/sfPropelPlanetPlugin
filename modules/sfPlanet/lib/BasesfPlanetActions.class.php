@@ -1,6 +1,6 @@
 <?php
 /**
- * sfPlanet module actions
+ * sfPlanet module base actions
  *
  */
 class BasesfPlanetActions extends sfActions
@@ -12,7 +12,15 @@ class BasesfPlanetActions extends sfActions
    */
   public function preExecute()
   {
-    $this->getResponse()->addStylesheet('/sfPropelPlanetPlugin/css/sf_planet.css');
+    $this->getResponse()->addStylesheet(sfConfig::get('app_planet_css_theme', '/sfPropelPlanetPlugin/css/sf_planet.css'));
+    
+    if ('rss' === $this->getRequest()->getParameter('sf_format'))
+    {
+      // Deactivate layout for RSS content (we're in a plugin, so no layout is available)
+      $this->setLayout(false);
+      // Also, cannot see why web_debug is displayed here but eh
+      sfConfig::set('sf_web_debug', false); 
+    }
   }
   
   /**
@@ -29,6 +37,20 @@ class BasesfPlanetActions extends sfActions
     if ($request->hasParameter('slug'))
     {
       $this->feed = sfPlanetFeedPeer::retrieveBySlug($request->getParameter('slug'));
+      if (is_null($this->feed))
+      {
+        $message = sprintf('Feed "%s" not found on this planet.', 
+                           $request->getParameter('slug'));
+        if ('rss' === $request->getParameter('sf_format'))
+        {
+          $this->getResponse()->setStatusCode(404);
+          return $this->renderText($message);
+        }
+        else
+        {
+          $this->forward404($message);
+        }
+      }
     }
     
     $this->pager = new sfPropelPager('sfPlanetFeedEntry', sfConfig::get('app_planet_max_per_page', 10));
@@ -37,13 +59,6 @@ class BasesfPlanetActions extends sfActions
     $this->pager->setPeerCountMethod('doCountJoinsfPlanetFeed');
     $this->pager->setPage($request->getParameter('page'));
     $this->pager->init();
-    
-    if ('rss' === $request->getParameter('sf_format'))
-    {
-      $this->setLayout(false);
-      sfConfig::set('sf_web_debug', false);
-      $this->getResponse()->setContentType('text/xml;charset=utf-8');
-    }
   }
   
   /**

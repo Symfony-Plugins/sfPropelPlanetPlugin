@@ -23,6 +23,7 @@ propel:
     feed_id:         { type: integer, required: true, foreignTable: sf_planet_feed, foreignReference: id, onDelete: cascade }
     title:           { type: varchar, size: 255, required: true, default: 'Unitled entry' }
     content:         longvarchar
+    author:          { type: varchar, size: 255, required: true, default: 'Anonym' }
     link_url:        { type: varchar, size: 255, required: true }
     unique_id:       { type: varchar, size: 32, index: true }
     created_at:      timestamp

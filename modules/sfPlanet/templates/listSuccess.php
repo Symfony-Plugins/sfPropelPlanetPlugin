@@ -57,6 +57,9 @@
                                   $entry->getsfPlanetFeed()->getTitle(),
             )) ?>
           <?php endif; ?>
+          <?php if ($entry->getAuthor()): ?>
+            <?php echo __(' by %author%', array('%author%' => $entry->getAuthor())) ?>
+          <?php endif; ?>
         </p>
         <div class="sf_planet_entry_content">
           <?php if (sfConfig::get('sf_escaping_strategy')): ?>

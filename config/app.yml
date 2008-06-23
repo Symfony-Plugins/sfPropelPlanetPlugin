@@ -13,19 +13,19 @@
 all:
   planet:
 
-    # Planet metadata
+    # Planet properties
     title:            My Planet               # The title of your planet
-    homepage:         "http://myplanet.foo/"  # The url of the homepage of your website/planet
     description:      The planet I live on    # A short description of your planet
     language:         en-us                   # The main language of aggregated entries
     editor_email:     ~                       # The editor email address
     webmaster_email:  ~                       # The webmaster email address
     
     # Advanced configuration
-    display_feeds_list: true   # displays the list of the active feeds on every page
-    max_per_page:       10     # sets max entries per page
-    routes_register:    true   # provides native routes for the sfPlanet web module
-    xss_paranoid:       false  # set to true if you don't want html displayed on your planet (less shiny, but useful for untrusted sources)           
+    css_theme:          ~                     # The CSS stylesheet to load for the sfPlanet web module (default: the bundled web/sfPropelPlanetPlugin/css/sf_planet.css)
+    display_feeds_list: true                  # Displays the list of the active feeds on every page
+    max_per_page:       10                    # Sets max entries per page
+    routes_register:    true                  # Provides native routes for the sfPlanet web module
+    xss_paranoid:       false                 # Set to true if you don't want html displayed on your planet (less shiny, but useful for untrusted sources)           
 
     # Available periodicities, in seconds. This will fill the according admin selectboxes
     periodicity:
