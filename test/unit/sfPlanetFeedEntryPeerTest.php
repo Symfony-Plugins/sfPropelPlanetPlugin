@@ -3,7 +3,7 @@ $app = 'frontend';
 require_once(dirname(__FILE__).'/../../../../test/bootstrap/functional.php');
 require_once(dirname(__FILE__).'/../../../../lib/vendor/symfony/lib/vendor/lime/lime.php');
 
-$t = new lime_test(4, new lime_output_color());
+$t = new lime_test(5, new lime_output_color());
 
 $i1 = new sfFeedItem(array(
   'link'    => 'http://foo.bar/entry1',
@@ -25,6 +25,9 @@ $t->diag('getOrCreateFromFeedItem()');
 $e1 = sfPlanetFeedEntryPeer::getOrCreateFromFeedItem($i1);
 $t->isa_ok($e1, 'sfPlanetFeedEntry', 'getOrCreateFromFeedItem() returns a sfPlanetFeedEntry');
 $t->ok(!$e1->isNew(), 'getOrCreateFromFeedItem() retrieves existing entry if exists in database');
-unset($e1);
+
+$t->diag('doDeleteOlderThan()');
+sleep(1);
+$t->is(sfPlanetFeedEntryPeer::doDeleteOlderThan(time() - 1), 1, 'doDeleteOlderThan() deletes entry older than given timestamp');
 
 $f1->delete();
