@@ -45,8 +45,13 @@ $ php symfony plugin-install -s beta sfPropelPlanetPlugin
 Dependencies will be installed automatically.
 
 == After plugin(s) has been installed ==
-Run these commands within your project:
+First, you must enable the Propel behaviors, tuning your `config/propel.ini` 
+file by changing the value of the `propel.builder.addBehaviors` property value:
+{{{
+propel.builder.addBehaviors = true
+}}}
 
+Then run the following commands within your project:
 {{{
 $ php symfony cache:clear
 $ php symfony propel:build-all-load <appname>

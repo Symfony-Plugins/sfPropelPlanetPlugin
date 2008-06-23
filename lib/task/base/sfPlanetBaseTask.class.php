@@ -96,6 +96,43 @@ class sfPlanetBaseTask extends sfBaseTask
   }
   
   /**
+   * Purges entries of a particular feed older than provided timestamp
+   *
+   * @param  sfPlanetFeed  $feed       The feed
+   * @param  int           $timestamp  The UNIX timestamp
+   * @return int                       The number of deleted entries
+   */
+  public function purgeFeedEntries(sfPlanetFeed $feed, $timestamp)
+  {
+    try
+    {
+      return sfPlanetFeedEntryPeer::doDeleteOlderThan($timestamp, $feed);
+    }
+    catch (PropelException $e)
+    {
+      $this->logError(sprintf('Error while purging entries for feed "%s": %s', 
+                              $feed->getTitle(), $e->getMessage()));
+    }
+  }
+  
+  /**
+   * Purges entries older than provided timestamp
+   *
+   * @param int     $timestamp
+   */
+  public function purgeEntries($timestamp)
+  {
+    try
+    {
+      return sfPlanetFeedEntryPeer::doDeleteOlderThan($timestamp);
+    }
+    catch (PropelException $e)
+    {
+      $this->logError(sprintf('Error while purging entries: %s', $e->getMessage()));
+    }
+  }
+  
+  /**
    * Implemented here because declared abstract in parent class
    * 
    * @see sfTask

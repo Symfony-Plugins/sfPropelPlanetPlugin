@@ -11,6 +11,7 @@ propel:
     feed_url:        { type: varchar, size: 255, required: true }
     is_active:       { type: boolean, default: 0 }
     periodicity:     { type: integer, required: true, default: 3600 }
+    #auto_purge:      { type: integer, required: true, default: 0 }
     last_grabbed_at: { type: timestamp, index: true }
     _indexes:
       slug_idx:      [slug, is_active]

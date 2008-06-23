@@ -8,6 +8,27 @@ class sfPlanetFeedEntryPeer extends BasesfPlanetFeedEntryPeer
 {
   
   /**
+   * Deletes entries older than provided timestamp
+   *
+   * @param  int           $timestamp  The UNIX timestamp
+   * @param  sfPlanetFeed  $feed       The feed (optional)
+   * @return int                       The number of deleted entries
+   */
+  public static function doDeleteOlderThan($timestamp, sfPlanetFeed $feed = null)
+  {
+    $c = new Criteria();
+    
+    if (!is_null($feed))
+    {
+      $c->add(self::FEED_ID, $feed->getId());
+    }
+    
+    $c->add(self::PUBLISHED_AT, date('Y-m-d H:i:s'), Criteria::LESS_THAN);
+    
+    return self::doDelete($c);
+  }
+  
+  /**
    * Generates a Criteria to retrieve active feed(s) entries
    *
    * @param  sfPlanetFeed  $feed  The feed instance (optional)

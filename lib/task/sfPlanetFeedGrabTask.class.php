@@ -17,10 +17,10 @@ class sfPlanetFeedGrabTask extends sfPlanetBaseTask
     $this->name             = 'feed-grab';
     $this->briefDescription = 'Grabs last planet feeds entries and store them in the database';
     $this->detailedDescription = <<<EOF
-The [planet:grab-entries|INFO] updates outdated feed entries, ones which the 
-[periodicity|COMMENT] value has been exceeded.
+The [planet:feed-grab|INFO] updates outdated feeds, ones from which the 
+[periodicity|COMMENT] time has been exceeded.
 
-If you want to force grabbing for all feeds, even outdated ones:
+If you want to force grabbing for all feeds, even up-to-date ones:
 
   $ php symfony planet:feed-grab [-f|COMMENT]
 
