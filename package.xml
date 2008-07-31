@@ -20,10 +20,10 @@
 		<email>nperriault@gmail.com</email>
 		<active>yes</active>
 	</lead>
-	<date>2008-06-22</date>
+	<date>2008-02-22</date>
 	<version>
-		<release>0.7.0</release>
-		<api>0.7.0</api>
+		<release>0.7.1</release>
+		<api>0.7.1</api>
 	</version>
 	<stability>
 		<release>beta</release>
