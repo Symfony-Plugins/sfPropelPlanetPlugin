@@ -35,10 +35,9 @@ EOF;
     ));
     
     $this->addOptions(array(
-      new sfCommandOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not outdated'),
+      new sfCommandOption('force-refresh', 'f', sfCommandOption::PARAMETER_NONE, 'Forces to grab and update all feeds, including those which are not perempted'),
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Prints verbose messages during grabbing'),      
     ));
-  }
   
   /**
    * Task execution
